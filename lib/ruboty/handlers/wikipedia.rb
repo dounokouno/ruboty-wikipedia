@@ -11,13 +11,13 @@ module Ruboty
       env :WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND, 'Message when not found (default: No articles found.)', optional: true
 
       on(
-        /(wikipedia|wiki) (?<keyword>.*?)\z/i,
+        /(wikipedia|wiki) (?<keyword>.+)/,
         name: 'wikipedia',
         description: 'Returns the Wikipedia url that matches the keyword.'
       )
 
       def wikipedia(message)
-        ::Wikipedia.configure { domain (ENV['WIKIPEDIA_DOMAIN'] || DEFAULT_WIKIPEDIA_DOMAIN) }
+        ::Wikipedia.configure { domain(ENV['WIKIPEDIA_DOMAIN'] || DEFAULT_WIKIPEDIA_DOMAIN) }
         page = ::Wikipedia.find message[:keyword]
 
         if page.summary.nil?
