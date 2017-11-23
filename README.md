@@ -33,7 +33,7 @@ $ gem install ruboty-wikipedia
 
 ```
 WIKIPEDIA_DOMAIN                 - Wikipedia domain (default: en.wikipedia.org)
-WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND - Message when no article was found (default: No articles found.)
+WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND - Message when not found (default: No articles found.)
 ```
 
 ## Contributing
