@@ -5,12 +5,10 @@ module Ruboty
   module Handlers
     class Wikipedia < Base
       DEFAULT_WIKIPEDIA_DOMAIN = 'en.wikipedia.org'
-      DEFAULT_WIKIPEDIA_MESSAGE_WHEN_NO_ARTICLE_WAS_FOUND = 'No articles found.'
+      DEFAULT_WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND = 'No articles found.'
 
       env :WIKIPEDIA_DOMAIN, 'Wikipedia domain (default: en.wikipedia.org)', optional: true
-      env :WIKIPEDIA_MESSAGE_WHEN_NO_ARTICLE_WAS_FOUND,
-        'Message when no article was found (default: No articles found.)',
-        optional: true
+      env :WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND, 'Message when not found (default: No articles found.)', optional: true
 
       on(
         /(wikipedia|wiki) (?<keyword>.*?)\z/i,
@@ -23,9 +21,7 @@ module Ruboty
         page = ::Wikipedia.find message[:keyword]
 
         if page.summary.nil?
-          message.reply(
-            ENV['WIKIPEDIA_MESSAGE_WHEN_NO_ARTICLE_WAS_FOUND'] || DEFAULT_WIKIPEDIA_MESSAGE_WHEN_NO_ARTICLE_WAS_FOUND
-          )
+          message.reply(ENV['WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND'] || DEFAULT_WIKIPEDIA_MESSAGE_WHEN_NOT_FOUND)
         else
           message.reply page.fullurl
         end
